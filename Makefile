@@ -65,7 +65,6 @@ clean:
 fclean: clean
 	@$(MAKE) -C $(DIRLIB) fclean
 	@$(RM) $(VGCORE_FILES)
-	@rm -rf $(MLX_DIR)
 
 re: fclean all
 
