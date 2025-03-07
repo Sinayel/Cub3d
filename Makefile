@@ -39,6 +39,11 @@ CUB3D_SRC = main.c $(PARSING_SRC) $(MATH_SRC) $(UTILS_SRC)
 
 all: $(MLX_LIB) $(NAME)
 
+$(NAMELFT):
+	@echo "Clonage et compilation de la libft..."
+	@if [ ! -d "$(DIRLIB)" ]; then git clone https://github.com/YOUR_GITHUB/libft.git $(DIRLIB); fi
+	@$(MAKE) -C $(DIRLIB)
+
 $(MLX_DIR):
 	@echo "Clonage de la MiniLibX..."
 	@if [ ! -d "$(MLX_DIR)" ]; then git clone $(MLX_REPO) $(MLX_DIR); fi
@@ -53,11 +58,12 @@ $(NAME): $(CUB3D_SRC) $(NAMELFT) $(MLX_LIB)
 	@echo -e '\033[33;32mCub3d created ! 🎉\033[0m'
 
 clean:
-	@$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(DIRLIB) clean
 	@$(RM) $(NAME)
 	@echo -e '\033[0;31mCub3d deleted ! 🛑'
 
 fclean: clean
+	@$(MAKE) -C $(DIRLIB) fclean
 	@$(RM) $(VGCORE_FILES)
 	@rm -rf $(MLX_DIR)
 
