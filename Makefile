@@ -2,10 +2,27 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-INCLUDE = -I ./include -I ./Libft
+INCLUDE = -I ./include -I ./Libft -I $(MLX_DIR)
 DIRLIB = ./libft/
 FILELIB = libft.a
 NAMELFT = $(addprefix $(DIRLIB), $(FILELIB))
+
+MLX_REPO_LINUX = https://github.com/42Paris/minilibx-linux.git
+MLX_REPO_MACOS = https://github.com/42Paris/minilibx-macos.git
+MLX_DIR = ./minilibx
+MLX_LIB = $(MLX_DIR)/libmlx.a
+
+MLX_FLAGS_LINUX = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
+MLX_FLAGS_MACOS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+    MLX_REPO = $(MLX_REPO_MACOS)
+    MLX_FLAGS = $(MLX_FLAGS_MACOS)
+else
+    MLX_REPO = $(MLX_REPO_LINUX)
+    MLX_FLAGS = $(MLX_FLAGS_LINUX)
+endif
 
 MAKEFLAGS += --no-print-directory
 RM = rm -f
@@ -14,40 +31,35 @@ NAME = minishell
 
 PARSING_SRC = 
 
-MAIN_SRC = 
+MATH_SRC = 
 
 UTILS_SRC = 
 
-CUB3D_SRC = main.c $(PARSING_SRC) $(MAIN_SRC) $(UTILS_SRC)
+CUB3D_SRC = main.c $(PARSING_SRC) $(MATH_SRC) $(UTILS_SRC)
 
-# ASCII_LOGO = -e "\
-# 	███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     \n\
-# 	████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n\
-# 	██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n\
-# 	██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n\
-# 	██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n\
-# 	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝"
+all: $(MLX_LIB) $(NAME)
 
-all: $(NAMELFT) $(NAME)
+$(MLX_DIR):
+	@echo "Clonage de la MiniLibX..."
+	@if [ ! -d "$(MLX_DIR)" ]; then git clone $(MLX_REPO) $(MLX_DIR); fi
 
-$(NAMELFT):
-	@echo "Compilation de la libft..."
-	@$(MAKE) -C $(DIRLIB)
+$(MLX_LIB): $(MLX_DIR)
+	@echo "Compilation de la MiniLibX..."
+	@$(MAKE) -C $(MLX_DIR)
 
-$(NAME): $(CUB3D_SRC) $(NAMELFT)
+$(NAME): $(CUB3D_SRC) $(NAMELFT) $(MLX_LIB)
 	@echo -e '\033[35mCreating Cub3d... 🕗\n'
-	@echo $(ASCII_LOGO)
-	@$(CC) $(CFLAGS) $(CUB3D_SRC) $(NAMELFT) $(INCLUDE) -o $(NAME)
+	@$(CC) $(CFLAGS) $(CUB3D_SRC) $(NAMELFT) $(INCLUDE) $(MLX_FLAGS) -o $(NAME)
 	@echo -e '\033[33;32mCub3d created ! 🎉\033[0m'
 
 clean:
-	@$(MAKE) -C $(DIRLIB) clean
+	@$(MAKE) -C $(MLX_DIR) clean
 	@$(RM) $(NAME)
 	@echo -e '\033[0;31mCub3d deleted ! 🛑'
 
 fclean: clean
-	@$(MAKE) -C $(DIRLIB) fclean
 	@$(RM) $(VGCORE_FILES)
+	@rm -rf $(MLX_DIR)
 
 re: fclean all
 
