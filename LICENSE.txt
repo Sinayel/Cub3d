@@ -1,6 +1,6 @@
 Private Use License
 
-Copyright (c) 2024 SinayelCorporation
+Copyright (c) 2025 SinayelCorporation
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to use
@@ -13,7 +13,7 @@ The following conditions must be met:
 4. The copyright notice must remain intact in all copies of the Software.
 MIT License
 
-Copyright (c) 2024 Yanis
+Copyright (c) 2025 Yanis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

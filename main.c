@@ -2,9 +2,18 @@
 
 int main(int argc, char *argv[])
 {
-    int i = 0;
-    (void)argc;
-    (void)argv;
-    printf("%d\n", i);
+
+    // Game loop
+    while (1)
+    {
+        // Process input
+
+        // Update game
+
+        // Render
+    }
+
+    // Clean up
+
     return 0;
 }
