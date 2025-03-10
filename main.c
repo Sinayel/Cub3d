@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylouvel <ylouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:31:08 by judenis           #+#    #+#             */
-/*   Updated: 2025/03/10 17:58:26 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:22:45 by ylouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ void copy(t_vars *vars)
 
     fd = open(vars->filename, O_RDONLY);
     if (fd == -1)
-    {
         ft_close_exit(vars, "Error\nFile error\n");
-    } //! Mettre vraie securite
+
     i = 0;
     line = NULL;
     vars->map = (char **)malloc(sizeof(char *) * (vars->len_y + 1));
@@ -95,10 +94,17 @@ void copy(t_vars *vars)
 int copy_map(t_vars *vars)
 {
     vars->len_y = ft_lastline(vars->filename);
-    copy(vars);
+
+    if (!check_borders(vars->map, vars->len_y))
+    {
+        ft_close_exit(vars, "Error\nMap non fermée par des murs !");
+        return (1);
+    }
+
     print_tab(vars->map);
-    return (0); // A changer
+    return (0);
 }
+
 
 void vars_init(t_vars *vars, char *path)
 {
@@ -111,6 +117,47 @@ void vars_init(t_vars *vars, char *path)
     vars->SO = NULL;
     vars->WE = NULL;
 }
+
+int clean(t_vars *vars)
+{
+    free_tabtab(vars->map);
+    free(vars->NO);
+    free(vars->EA);
+    free(vars->SO);
+    free(vars->WE);
+    return (0);
+}
+
+int check_borders(char **map, int len_y)
+{
+    int i = 0;
+    int j;
+    int len_x;
+
+    if (!map || len_y == 0)
+        return (0);
+
+    len_x = ft_strlen(map[0]);
+
+    j = 0;
+    while (j < len_x)
+    {
+        if (map[0][j] != '1' || map[len_y - 1][j] != '1')
+            return (0);
+        j++;
+    }
+
+    while (i < len_y)
+    {
+        len_x = ft_strlen(map[i]);
+        if (map[i][0] != '1' || map[i][len_x - 1] != '1')
+            return (0);
+        i++;
+    }
+
+    return (1);
+}
+
 
 int main(int argc, char *argv[])
 {

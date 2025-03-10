@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylouvel <ylouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:22:17 by ylouvel           #+#    #+#             */
-/*   Updated: 2025/03/10 16:57:35 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:19:46 by ylouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ typedef struct s_img
 
 typedef struct s_vars
 {
+    // mlx
     void *mlx;
     void *win;
 
     int fd;
 
+    // minimap
     void *img_minimap_p;
     void *img_minimap_w;
     void *img_minimap_f;
@@ -67,7 +69,9 @@ typedef struct s_vars
     
 }               t_vars;
 
+//* UTILS
 char	*get_next_line(int fd);
+int check_borders(char **map, int len_y);
 
 int keyhook(int keycode, t_vars *vars);
 int ft_exit(t_vars *vars);
