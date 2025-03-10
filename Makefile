@@ -27,7 +27,7 @@ endif
 MAKEFLAGS += --no-print-directory
 RM = rm -f
 VGCORE_FILES = vgcore.*
-NAME = minishell
+NAME = cub3d
 
 PARSING_SRC = 
 
@@ -37,7 +37,11 @@ UTILS_SRC =
 
 CUB3D_SRC = main.c $(PARSING_SRC) $(MATH_SRC) $(UTILS_SRC)
 
-all: $(MLX_LIB) $(NAME)
+all: $(NAME)
+
+mlx :
+				git clone https://github.com/42Paris/minilibx-linux.git minilibx
+				@cd minilibx && ./configure
 
 $(NAMELFT):
 	@echo "Clonage et compilation de la libft..."
@@ -52,7 +56,7 @@ $(MLX_LIB): $(MLX_DIR)
 	@echo "Compilation de la MiniLibX..."
 	@$(MAKE) -C $(MLX_DIR)
 
-$(NAME): $(CUB3D_SRC) $(NAMELFT) $(MLX_LIB)
+$(NAME): $(CUB3D_SRC)
 	@echo -e '\033[35mCreating Cub3d... 🕗\n'
 	@$(CC) $(CFLAGS) $(CUB3D_SRC) $(NAMELFT) $(INCLUDE) $(MLX_FLAGS) -o $(NAME)
 	@echo -e '\033[33;32mCub3d created ! 🎉\033[0m'
