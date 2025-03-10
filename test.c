@@ -73,7 +73,7 @@ int main()
             my_mlx_pixel_put(&vars.img, x, y, 0x00FF0000); // Rouge
 
     // Appliquer la rotation
-    rotate_image(&vars.img, &rotated_img, 30.0);
+    rotate_image(&vars.img, &rotated_img, 45.0);
 
     // Afficher l'image tournée
     mlx_put_image_to_window(vars.mlx, vars.win, rotated_img.img, 0, 0);

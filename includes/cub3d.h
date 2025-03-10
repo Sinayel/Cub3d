@@ -6,7 +6,7 @@
 /*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:22:17 by ylouvel           #+#    #+#             */
-/*   Updated: 2025/03/10 15:24:30 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/10 16:57:35 by judenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 #include <../libft/libft.h>
 #include "../minilibx/mlx.h"
 
+typedef struct s_img
+{
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     line_length;
+    int     endian;
+}   t_img;
+
 typedef struct s_vars
 {
     void *mlx;
@@ -33,6 +42,8 @@ typedef struct s_vars
     void *img_minimap_p;
     void *img_minimap_w;
     void *img_minimap_f;
+
+    void *line;
 
     char *filename;
     char **map;
@@ -76,5 +87,8 @@ int	ft_strchr_y(t_vars *vars, char searched_obj);
 void ft_minimap(t_vars *vars);
 
 int ft_close_exit(t_vars *vars, char *msg);
+
+void draw_line(t_img *img, int x0, int y0, int x1, int y1, int color);
+void draw_line_angle(t_img *img, int x0, int y0, int length, double angle_deg, int color);
 
 #endif

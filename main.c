@@ -6,7 +6,7 @@
 /*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:31:08 by judenis           #+#    #+#             */
-/*   Updated: 2025/03/10 15:23:55 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/10 17:58:26 by judenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,75 +37,42 @@ void print_tab(char **tab)
 
 int launch(t_vars *vars)
 {
+    t_img img;
     vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, 1920, 1080,
 			"cub3D");
+
+
     vars->img_minimap_p = mlx_xpm_file_to_image(vars->mlx, "sprites/player.xpm", &vars->height , &vars->width);
     vars->img_minimap_w = mlx_xpm_file_to_image(vars->mlx, "sprites/wall.xpm", &vars->height , &vars->width);
     vars->img_minimap_f = mlx_xpm_file_to_image(vars->mlx, "sprites/floor.xpm", &vars->height , &vars->width);
-    ft_minimap(vars);
+    ft_minimap(vars);   
+    
+    vars->line = mlx_new_image(vars->mlx, 800, 600); // Crée l’image pour la ligne
+    img.img = vars->line;
+    img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
+
+    draw_line_angle(&img, vars->x, vars->y, 500, 45, 0xfa0505);
+
+    // Afficher l’image
+    mlx_put_image_to_window(vars->mlx, vars->win, vars->line, vars->x, vars->y);
+    
     mlx_hook(vars->win, 2, (1L << 0), keyhook, vars);
 	mlx_hook(vars->win, 17, 0, ft_exit, vars);
     mlx_loop(vars->mlx);
     return (0);
 }
 
-// int allocate_tab(t_vars *vars, char *path)
-// {
-//     int i;
-
-//     i = 0;
-//     vars->map = (char **)malloc(sizeof(char *) * (vars->len_y));
-//     if (!vars->map)
-//         return (1);
-//     while (i < vars->len_y)
-//     {
-//         vars->map[i] = (char *)malloc(sizeof(char) * vars->len_x + 1);
-//         if (!vars->map[i])
-//             return (2);
-//         i++;
-//     }
-//     return (0);
-// }
-
-void write_map(t_vars *vars, int begining, int fd)
-{
-    char	*buffer;
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	k = begining;
-	buffer = (char *)malloc(sizeof(char) * 4069);
-	// if (!buffer)
-	// 	return (NULL); // a voir
-	while (i < vars->len_y)
-	{
-		j = 0;
-		while (read(fd, buffer + k, 1) == 1)
-		{
-			if (buffer[k] == '\n' || buffer[k] == '\0')
-				break ;
-            vars->map[i][j] = buffer[k];
-			j++;
-		}
-		vars->map[i][j] = '\0';
-		i++;
-	}
-	free(buffer);
-}
-
-void copy(char *path, t_vars *vars)
+void copy(t_vars *vars)
 {
     char *line;
     int i;
     int fd;
 
-    fd = open(path, O_RDONLY);
+    fd = open(vars->filename, O_RDONLY);
     if (fd == -1)
     {
-        ft_close_exit()
+        ft_close_exit(vars, "Error\nFile error\n");
     } //! Mettre vraie securite
     i = 0;
     line = NULL;
@@ -125,10 +92,10 @@ void copy(char *path, t_vars *vars)
     close(fd);
 }
 
-int copy_map(char *path, t_vars *vars)
+int copy_map(t_vars *vars)
 {
-    vars->len_y = ft_lastline(path);
-    copy(path, vars);
+    vars->len_y = ft_lastline(vars->filename);
+    copy(vars);
     print_tab(vars->map);
     return (0); // A changer
 }
@@ -152,7 +119,7 @@ int main(int argc, char *argv[])
     (void)argc;
     // Parsing
     printf("FILENAME : %s\n", vars.filename);
-    copy_map(argv[1], &vars);
+    copy_map(&vars);
     
     launch(&vars);
 }

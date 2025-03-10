@@ -6,7 +6,7 @@
 /*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:22:31 by judenis           #+#    #+#             */
-/*   Updated: 2025/03/10 15:23:11 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/10 15:39:26 by judenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int ft_close_exit(t_vars *vars, char *msg)
 {
 	ft_putstr_fd(msg, 2);
 	ft_exit(vars);
+	return (1);
 }
 
 int	ft_strchr_x(t_vars *vars, char searched_obj)

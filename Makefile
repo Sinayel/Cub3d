@@ -31,7 +31,7 @@ NAME = cub3d
 
 PARSING_SRC = 
 
-MATH_SRC = minimap.c
+MATH_SRC = minimap.c raycasting.c
 
 UTILS_SRC = len_utils.c keyhook.c get_next_line.c utils.c
 
