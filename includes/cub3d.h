@@ -6,7 +6,7 @@
 /*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:22:17 by ylouvel           #+#    #+#             */
-/*   Updated: 2025/03/10 12:03:22 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/10 15:24:30 by judenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct s_vars
     void *mlx;
     void *win;
 
+    int fd;
+
+    void *img_minimap_p;
+    void *img_minimap_w;
+    void *img_minimap_f;
+
+    char *filename;
     char **map;
     int len_x;
     int len_y;
@@ -39,6 +46,9 @@ typedef struct s_vars
     char *EA;
     int floor[3]; //! Verifier si 0 <= R/G/B <= 255
     int ceiling[3]; //! Verifier si 0 <= R/G/B <= 255
+    
+    int width;
+    int height;
 
     int facing; //! 0 <= x <= 359
     int x;
@@ -55,6 +65,16 @@ int ft_exit(t_vars *vars);
 int	ft_lenline(char *filename);
 int	ft_lastline(char *filename);
 
+void free_tabtab(char **tab);
 int	begining_of_map(char *filename);
+
+
+void print_tab(char **tab);
+int	ft_strchr_x(t_vars *vars, char searched_obj);
+
+int	ft_strchr_y(t_vars *vars, char searched_obj);
+void ft_minimap(t_vars *vars);
+
+int ft_close_exit(t_vars *vars, char *msg);
 
 #endif

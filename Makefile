@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =  -g3 -Wall -Wextra -Werror
 
 INCLUDE = -I ./include -I ./Libft -I $(MLX_DIR)
 DIRLIB = ./libft/
@@ -31,9 +31,9 @@ NAME = cub3d
 
 PARSING_SRC = 
 
-MATH_SRC = 
+MATH_SRC = minimap.c
 
-UTILS_SRC = len_utils.c keyhook.c get_next_line.c get_next_line_utils.c
+UTILS_SRC = len_utils.c keyhook.c get_next_line.c utils.c
 
 CUB3D_SRC = main.c $(PARSING_SRC) $(MATH_SRC) $(UTILS_SRC)
 
