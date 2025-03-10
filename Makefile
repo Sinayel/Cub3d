@@ -33,7 +33,7 @@ PARSING_SRC =
 
 MATH_SRC = 
 
-UTILS_SRC = 
+UTILS_SRC = len_utils.c keyhook.c get_next_line.c get_next_line_utils.c
 
 CUB3D_SRC = main.c $(PARSING_SRC) $(MATH_SRC) $(UTILS_SRC)
 
@@ -58,6 +58,7 @@ $(MLX_LIB): $(MLX_DIR)
 
 $(NAME): $(CUB3D_SRC)
 	@echo -e '\033[35mCreating Cub3d... 🕗\n'
+	@$(MAKE) -C $(DIRLIB)
 	@$(CC) $(CFLAGS) $(CUB3D_SRC) $(NAMELFT) $(INCLUDE) $(MLX_FLAGS) -o $(NAME)
 	@echo -e '\033[33;32mCub3d created ! 🎉\033[0m'
 
