@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyhook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylouvel <ylouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 10:38:52 by judenis           #+#    #+#             */
-/*   Updated: 2025/03/10 18:00:12 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/23 15:15:58 by ylouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int keyhook(int keycode, t_vars *vars)
         vars->x += 10;
     if (keycode == 65307) // Echap
         ft_exit(vars);
-    print_tab(vars->map);
+    // print_tab(vars->map);
+    jsp(vars);
     printf("keycode : %d\nx : %d, y : %d\n", keycode, vars->x, vars->y);
     ft_minimap(vars);
     return (0);

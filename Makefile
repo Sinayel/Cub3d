@@ -29,7 +29,7 @@ RM = rm -f
 VGCORE_FILES = vgcore.*
 NAME = cub3d
 
-PARSING_SRC = 
+PARSING_SRC = ./parsing/verif.c
 
 MATH_SRC = minimap.c raycasting.c
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judenis <judenis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylouvel <ylouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:31:08 by judenis           #+#    #+#             */
-/*   Updated: 2025/03/10 17:58:26 by judenis          ###   ########.fr       */
+/*   Updated: 2025/03/23 15:15:51 by ylouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int copy_map(t_vars *vars)
 {
     vars->len_y = ft_lastline(vars->filename);
     copy(vars);
-    print_tab(vars->map);
+    // print_tab(vars->map); // Affiche la map
     return (0); // A changer
 }
 

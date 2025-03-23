@@ -6,7 +6,7 @@
 /*   By: ylouvel <ylouvel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:22:17 by ylouvel           #+#    #+#             */
-/*   Updated: 2025/03/10 19:19:46 by ylouvel          ###   ########.fr       */
+/*   Updated: 2025/03/23 15:13:58 by ylouvel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_vars
     int y;
     
 }               t_vars;
+
+void jsp(t_vars *vars);
 
 //* UTILS
 char	*get_next_line(int fd);
